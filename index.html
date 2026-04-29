@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unplugged by Tom Freston | Adventures from MTV to Timbuktu</title>
+  <meta name="description" content="The new memoir from MTV cofounder and former Viacom CEO Tom Freston. Available now from Gallery Books / Simon & Schuster.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Unplugged by Tom Freston | Adventures from MTV to Timbuktu">
+  <meta property="og:description" content="The new memoir from MTV cofounder and former Viacom CEO Tom Freston. Available now from Gallery Books / Simon & Schuster.">
+  <meta property="og:image" content="https://m.media-amazon.com/images/I/81vQYx3-y9L._SL1500_.jpg">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Unplugged by Tom Freston | Adventures from MTV to Timbuktu">
+  <meta name="twitter:description" content="The new memoir from MTV cofounder and former Viacom CEO Tom Freston.">
+  <meta name="twitter:image" content="https://m.media-amazon.com/images/I/81vQYx3-y9L._SL1500_.jpg">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            charcoal: '#1a1a1a',
+            'charcoal-light': '#2a2a2a',
+            'charcoal-dark': '#111111',
+            cream: '#F5F0E8',
+            'cream-dim': '#c4b99a',
+            amber: '#D4A574',
+            'amber-dark': '#B8895A',
+          },
+          fontFamily: {
+            serif: ['Playfair Display', 'Georgia', 'serif'],
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+
+  <style>
+    /* Noise texture overlay for hero */
+    .grain::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1;
+    }
+    .grain > * { position: relative; z-index: 2; }
+
+    /* Smooth transitions for mobile menu */
+    .mobile-menu { transition: opacity 0.3s ease, visibility 0.3s ease; }
+    .mobile-menu.hidden { opacity: 0; visibility: hidden; }
+    .mobile-menu.visible { opacity: 1; visibility: visible; }
+
+    /* Modal backdrop */
+    .modal-backdrop { transition: opacity 0.2s ease; }
+
+    /* Quote marks */
+    .pull-quote::before { content: '\201C'; }
+    .pull-quote::after { content: '\201D'; }
+  </style>
+</head>
+
+<body class="bg-charcoal text-cream font-sans antialiased">
+
+  <!-- ============================================ -->
+  <!-- STICKY NAV                                   -->
+  <!-- ============================================ -->
+  <header id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-charcoal/95 backdrop-blur-sm border-b border-white/5">
+    <nav class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#" class="font-serif text-xl font-semibold text-cream tracking-wide">Tom Freston</a>
+
+      <!-- Desktop links -->
+      <ul class="hidden md:flex items-center gap-8 text-sm font-sans font-medium text-cream-dim">
+        <li><a href="#the-book" class="hover:text-cream transition-colors">The Book</a></li>
+        <li><a href="#about-tom" class="hover:text-cream transition-colors">About Tom</a></li>
+        <li><a href="#praise" class="hover:text-cream transition-colors">Praise</a></li>
+        <li><a href="#events" class="hover:text-cream transition-colors">Events</a></li>
+        <li><a href="#press" class="hover:text-cream transition-colors">Press</a></li>
+        <li><a href="#contact" class="hover:text-cream transition-colors">Contact</a></li>
+      </ul>
+
+      <!-- Hamburger -->
+      <button id="menu-toggle" class="md:hidden text-cream focus:outline-none" aria-label="Toggle menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path id="hamburger-icon" stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </nav>
+
+    <!-- Mobile menu overlay -->
+    <div id="mobile-menu" class="mobile-menu hidden fixed inset-0 bg-charcoal/98 backdrop-blur-md flex flex-col items-center justify-center gap-8 text-2xl font-serif z-50">
+      <button id="menu-close" class="absolute top-5 right-6 text-cream" aria-label="Close menu">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+      <a href="#the-book" class="text-cream hover:text-amber transition-colors mobile-link">The Book</a>
+      <a href="#about-tom" class="text-cream hover:text-amber transition-colors mobile-link">About Tom</a>
+      <a href="#praise" class="text-cream hover:text-amber transition-colors mobile-link">Praise</a>
+      <a href="#events" class="text-cream hover:text-amber transition-colors mobile-link">Events</a>
+      <a href="#press" class="text-cream hover:text-amber transition-colors mobile-link">Press</a>
+      <a href="#contact" class="text-cream hover:text-amber transition-colors mobile-link">Contact</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============================================ -->
+    <!-- HERO                                        -->
+    <!-- ============================================ -->
+    <section class="grain relative min-h-screen flex items-center bg-charcoal-dark pt-20">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-24 grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+
+        <!-- Book cover -->
+        <div class="flex justify-center md:justify-end order-1 md:order-1">
+          <img
+            src="https://m.media-amazon.com/images/I/81vQYx3-y9L._SL1500_.jpg"
+            onerror="this.onerror=null;this.src='https://images-na.ssl-images-amazon.com/images/P/1668089793.01._SCLZZZZZZZ_.jpg';"
+            alt="Unplugged: Adventures from MTV to Timbuktu by Tom Freston — book cover"
+            class="w-72 md:w-96 shadow-2xl shadow-black/50 rounded-sm"
+          >
+        </div>
+
+        <!-- Text -->
+        <div class="order-2 md:order-2 text-center md:text-left">
+          <p class="text-amber uppercase tracking-[0.3em] text-xs font-sans font-semibold mb-4">A New Memoir</p>
+          <h1 class="font-serif text-6xl sm:text-7xl md:text-8xl font-bold text-cream leading-none mb-3">Unplugged</h1>
+          <p class="font-serif text-xl sm:text-2xl text-cream-dim italic mb-2">Adventures from MTV to Timbuktu</p>
+          <p class="font-sans text-lg text-cream-dim mb-8">by Tom Freston</p>
+
+          <blockquote class="border-l-2 border-amber pl-5 mb-10 max-w-lg mx-auto md:mx-0">
+            <p class="font-serif italic text-cream/90 text-base leading-relaxed">&ldquo;There is no table in the world where you would not want to be sitting across from Tom Freston.&rdquo;</p>
+            <cite class="block mt-2 text-amber text-sm font-sans not-italic font-medium">&mdash; Bono</cite>
+          </blockquote>
+
+          <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+            <button id="buy-btn" class="bg-amber hover:bg-amber-dark text-charcoal-dark font-semibold px-8 py-3 rounded text-sm tracking-wide transition-colors">
+              Buy the Book
+            </button>
+            <a href="#the-book" class="border border-cream/30 hover:border-cream/60 text-cream font-medium px-8 py-3 rounded text-sm tracking-wide transition-colors text-center">
+              Read an Excerpt
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- RETAILER MODAL                              -->
+    <!-- ============================================ -->
+    <div id="retailer-modal" class="modal-backdrop fixed inset-0 z-[60] bg-black/70 flex items-center justify-center hidden">
+      <div class="bg-charcoal-light border border-white/10 rounded-lg shadow-2xl w-full max-w-md mx-4 p-8 relative">
+        <button id="modal-close" class="absolute top-4 right-4 text-cream-dim hover:text-cream" aria-label="Close">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+        <h3 class="font-serif text-2xl font-semibold mb-6 text-cream">Buy the Book</h3>
+        <ul class="space-y-3">
+          <li><a href="https://www.amazon.com/Unplugged-Adventures-Timbuktu-Tom-Freston/dp/1668089793" target="_blank" rel="noopener" class="flex items-center justify-between px-4 py-3 rounded bg-charcoal hover:bg-charcoal-dark border border-white/5 hover:border-amber/40 transition-colors text-cream text-sm font-medium">Amazon <span class="text-amber text-xs">&rarr;</span></a></li>
+          <li><a href="https://www.barnesandnoble.com/w/unplugged-tom-freston/1146966547" target="_blank" rel="noopener" class="flex items-center justify-between px-4 py-3 rounded bg-charcoal hover:bg-charcoal-dark border border-white/5 hover:border-amber/40 transition-colors text-cream text-sm font-medium">Barnes &amp; Noble <span class="text-amber text-xs">&rarr;</span></a></li>
+          <li><a href="https://bookshop.org/p/books/unplugged-adventures-from-mtv-to-timbuktu-tom-freston/8a0e7e0e" target="_blank" rel="noopener" class="flex items-center justify-between px-4 py-3 rounded bg-charcoal hover:bg-charcoal-dark border border-white/5 hover:border-amber/40 transition-colors text-cream text-sm font-medium">Bookshop.org <span class="text-amber text-xs">&rarr;</span></a></li>
+          <li><a href="https://www.simonandschuster.com/books/Unplugged/Tom-Freston/9781668089798" target="_blank" rel="noopener" class="flex items-center justify-between px-4 py-3 rounded bg-charcoal hover:bg-charcoal-dark border border-white/5 hover:border-amber/40 transition-colors text-cream text-sm font-medium">Simon &amp; Schuster <span class="text-amber text-xs">&rarr;</span></a></li>
+          <li><a href="https://books.apple.com/us/book/unplugged/id6743528862" target="_blank" rel="noopener" class="flex items-center justify-between px-4 py-3 rounded bg-charcoal hover:bg-charcoal-dark border border-white/5 hover:border-amber/40 transition-colors text-cream text-sm font-medium">Apple Books <span class="text-amber text-xs">&rarr;</span></a></li>
+          <li><a href="https://www.amazon.com/Unplugged-Adventures-Timbuktu-Tom-Freston/dp/1668129728" target="_blank" rel="noopener" class="flex items-center justify-between px-4 py-3 rounded bg-charcoal hover:bg-charcoal-dark border border-white/5 hover:border-amber/40 transition-colors text-cream text-sm font-medium">Audiobook (Blackstone) <span class="text-amber text-xs">&rarr;</span></a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- THE BOOK                                    -->
+    <!-- ============================================ -->
+    <section id="the-book" class="py-24 md:py-32 border-t border-white/5">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid md:grid-cols-5 gap-12 md:gap-16">
+          <!-- Left column -->
+          <div class="md:col-span-2">
+            <p class="text-amber uppercase tracking-[0.25em] text-xs font-sans font-semibold mb-3">About</p>
+            <h2 class="font-serif text-4xl md:text-5xl font-bold text-cream leading-tight mb-4">The Book</h2>
+            <p class="font-serif text-lg text-cream-dim italic leading-relaxed">A freewheeling memoir of risk-taking, rule-breaking, and warm cultural exchanges.</p>
+          </div>
+
+          <!-- Right column -->
+          <div class="md:col-span-3">
+            <div class="space-y-5 text-cream/80 leading-relaxed font-light">
+              <p>A freewheeling memoir from media honcho Tom Freston that takes us behind the scenes of his global adventures&mdash;from hitchhiking around the world, to running a clothing export company out of India and Afghanistan, to cofounding MTV, to becoming CEO of MTV Networks, then CEO of Viacom, then later returning to work in Africa and Afghanistan.</p>
+              <p>Tom Freston&rsquo;s path to the C-suite was decidedly non-traditional. After getting his MBA, he bartended his way through the United States and the Caribbean, sparking a lifelong passion for travel. After a brief stint at an ad agency, he chucked it all and headed to the Sahara Desert and beyond. Entranced by India and Afghanistan, he stayed on for eight years and launched his first big success, Hindu Kush, a company that designed and manufactured contemporary clothing for export to America and other countries.</p>
+              <p>Freston&rsquo;s next chapter followed his other passion: music. He joined the small original team that launched MTV where he swiftly climbed the ladder, eventually overseeing not only MTV but also Nickelodeon, Comedy Central, VH1, CMT, and other iconic networks. He built a creative powerhouse that transformed global popular culture in cable&rsquo;s all-conquering heyday.</p>
+              <p>In this unique memoir of risk-taking, rule-breaking, and warm cultural exchanges, Freston shows how to be successful at living your life on your own terms.</p>
+            </div>
+
+            <!-- Metadata -->
+            <div class="mt-10 pt-8 border-t border-white/10 flex flex-wrap gap-x-6 gap-y-2 text-xs text-cream-dim font-sans">
+              <span>Gallery Books / Simon &amp; Schuster</span>
+              <span class="text-white/20">&middot;</span>
+              <span>November 18, 2025</span>
+              <span class="text-white/20">&middot;</span>
+              <span>320 pages</span>
+              <span class="text-white/20">&middot;</span>
+              <span>Hardcover, eBook, Audiobook</span>
+              <span class="text-white/20">&middot;</span>
+              <span>ISBN: 9781668089798</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- PRAISE                                      -->
+    <!-- ============================================ -->
+    <section id="praise" class="py-24 md:py-32 bg-charcoal-dark border-t border-white/5">
+      <div class="max-w-7xl mx-auto px-6">
+        <p class="text-amber uppercase tracking-[0.25em] text-xs font-sans font-semibold mb-3 text-center">What they&rsquo;re saying</p>
+        <h2 class="font-serif text-4xl md:text-5xl font-bold text-cream text-center mb-16">Praise</h2>
+
+        <!-- Featured blurbs -->
+        <div class="grid md:grid-cols-2 gap-8 mb-20">
+
+          <!-- Bono -->
+          <article class="bg-charcoal border border-white/5 rounded-lg p-8">
+            <p class="font-serif italic text-cream/90 leading-relaxed mb-4">&ldquo;There is no table in the world where you would not want to be sitting across from Tom Freston. The man can turn a corporate boardroom into a juke joint. If I did not know this urbane cowboy so well, I would not believe half the stories in this remarkable book. Musicians, actors, and directors be warned: Tom Freston can dance us all off the stage.&rdquo;</p>
+            <cite class="text-amber text-sm font-sans not-italic font-medium">&mdash; Bono</cite>
+          </article>
+
+          <!-- Walter Isaacson -->
+          <article class="bg-charcoal border border-white/5 rounded-lg p-8">
+            <p class="font-serif italic text-cream/90 leading-relaxed mb-4">&ldquo;This is a brilliant business book wrapped inside of a wild adventure story. Funny, insightful, and filled with colorful characters, it tells the story of how Tom and his gang created MTV, built a multibillion-dollar company, and changed both the music and television business. He broke rules, took risks, made amazing friends, and had a hell of a ride, from Manhattan to Timbuktu.&rdquo;</p>
+            <cite class="text-amber text-sm font-sans not-italic font-medium">&mdash; Walter Isaacson</cite>
+          </article>
+
+          <!-- Pico Iyer -->
+          <article class="bg-charcoal border border-white/5 rounded-lg p-8">
+            <p class="font-serif italic text-cream/90 leading-relaxed mb-4">&ldquo;Only Tom Freston could give us a magical evocation of the joys of travel&mdash;to Afghanistan, to Burma, to Mali and Morocco&mdash;while also sharing a front-seat view of life at the top of both Hollywood and MTV. <em>Unplugged</em> is pure delight&mdash;a history lesson, an adventure story and a handbook on how to succeed in business all at once.&rdquo;</p>
+            <cite class="text-amber text-sm font-sans not-italic font-medium">&mdash; Pico Iyer</cite>
+          </article>
+
+          <!-- Fab 5 Freddy -->
+          <article class="bg-charcoal border border-white/5 rounded-lg p-8">
+            <p class="font-serif italic text-cream/90 leading-relaxed mb-4">&ldquo;Tom Freston&rsquo;s <em>Unplugged</em> is the most thrilling rock &amp; roll literary ride of this era, full of excitement and zany counterculture cool, spiced with his razor sharp observations and quick wit. The adventures never cease.&rdquo;</p>
+            <cite class="text-amber text-sm font-sans not-italic font-medium">&mdash; Fab 5 Freddy</cite>
+          </article>
+
+          <!-- Rory Stewart -->
+          <article class="bg-charcoal border border-white/5 rounded-lg p-8">
+            <p class="font-serif italic text-cream/90 leading-relaxed mb-4">&ldquo;Lively, inventive, charming, and often exhilarating. An enjoyable telling of a life well lived.&rdquo;</p>
+            <cite class="text-amber text-sm font-sans not-italic font-medium">&mdash; Rory Stewart</cite>
+          </article>
+
+          <!-- William Dalrymple -->
+          <article class="bg-charcoal border border-white/5 rounded-lg p-8">
+            <p class="font-serif italic text-cream/90 leading-relaxed mb-4">&ldquo;<em>Unplugged</em> is as droll as it is revealing, as gossipy as it is indiscrete and as warm as it is witty and wise.&rdquo;</p>
+            <cite class="text-amber text-sm font-sans not-italic font-medium">&mdash; William Dalrymple</cite>
+          </article>
+
+          <!-- Lee Woodruff -->
+          <article class="bg-charcoal border border-white/5 rounded-lg p-8 md:col-span-2">
+            <p class="font-serif italic text-cream/90 leading-relaxed mb-4">&ldquo;Tom Freston hasn&rsquo;t just lived life <em>Unplugged</em>&mdash;he&rsquo;s lived it full throttle. From designing and exporting clothes in India and Afghanistan to co-founding MTV and becoming CEO of Viacom, he broke the rules and made his own luck.&rdquo;</p>
+            <cite class="text-amber text-sm font-sans not-italic font-medium">&mdash; Lee Woodruff</cite>
+          </article>
+        </div>
+
+        <!-- Press quotes -->
+        <div>
+          <h3 class="font-serif text-2xl font-semibold text-cream mb-8 text-center">From the Press</h3>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="bg-charcoal/60 border border-white/5 rounded p-5">
+              <p class="font-serif italic text-cream/80 text-sm leading-relaxed mb-3">&ldquo;A CEO memoir that rocks.&rdquo;</p>
+              <span class="text-amber text-xs font-sans font-medium">Literary Hub</span>
+            </div>
+            <div class="bg-charcoal/60 border border-white/5 rounded p-5">
+              <p class="font-serif italic text-cream/80 text-sm leading-relaxed mb-3">&ldquo;An unexpectedly charming and self-effacing business memoir.&rdquo;</p>
+              <span class="text-amber text-xs font-sans font-medium">Kirkus</span>
+            </div>
+            <div class="bg-charcoal/60 border border-white/5 rounded p-5">
+              <p class="font-serif italic text-cream/80 text-sm leading-relaxed mb-3">&ldquo;Equal parts industry tell-all, escapist travelogue, and glittering glimpse into the golden age of music videos. It&rsquo;s a memorable ride.&rdquo;</p>
+              <span class="text-amber text-xs font-sans font-medium">Publishers Weekly</span>
+            </div>
+            <div class="bg-charcoal/60 border border-white/5 rounded p-5">
+              <p class="font-serif italic text-cream/80 text-sm leading-relaxed mb-3">&ldquo;With pacing resembling a page-turning thriller&hellip; truly, there is never a dull moment. A fun and fascinating memoir.&rdquo;</p>
+              <span class="text-amber text-xs font-sans font-medium">Booklist</span>
+            </div>
+            <div class="bg-charcoal/60 border border-white/5 rounded p-5">
+              <p class="font-serif italic text-cream/80 text-sm leading-relaxed mb-3">&ldquo;The latest in a recent run of must-read memoirs from media moguls.&rdquo;</p>
+              <span class="text-amber text-xs font-sans font-medium">Town &amp; Country</span>
+            </div>
+            <div class="bg-charcoal/60 border border-white/5 rounded p-5">
+              <p class="font-serif italic text-cream/80 text-sm leading-relaxed mb-3">&ldquo;Unplugged shows by example that trying to follow a straight line to success is not the only path.&rdquo;</p>
+              <span class="text-amber text-xs font-sans font-medium">Associated Press</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- ABOUT TOM                                   -->
+    <!-- ============================================ -->
+    <section id="about-tom" class="py-24 md:py-32 border-t border-white/5">
+      <div class="max-w-7xl mx-auto px-6">
+        <p class="text-amber uppercase tracking-[0.25em] text-xs font-sans font-semibold mb-3">The Author</p>
+        <h2 class="font-serif text-4xl md:text-5xl font-bold text-cream mb-12">About Tom</h2>
+
+        <div class="grid md:grid-cols-5 gap-12 md:gap-16 items-start">
+          <!-- Headshot placeholder -->
+          <div class="md:col-span-2 flex justify-center">
+            <!-- TODO: Replace with high-res headshot from digital manager -->
+            <div class="w-72 h-96 bg-charcoal-light border border-white/10 rounded-lg flex items-center justify-center text-cream-dim text-sm font-sans text-center px-6">
+              Headshot to be supplied
+            </div>
+          </div>
+
+          <!-- Bio -->
+          <div class="md:col-span-3 space-y-5 text-cream/80 leading-relaxed font-light">
+            <p>Tom Freston is a cofounder of MTV and the former CEO of Viacom, where he oversaw Paramount Pictures. After launching a successful clothing export company out of Afghanistan and India, Freston transitioned into the media landscape, helping found MTV and bringing it to international fame in more than 150 countries.</p>
+            <p>Before his Viacom roles, he ran MTV Networks for seventeen years, overseeing Nickelodeon, VH1, Comedy Central, CMT, and other legendary networks. He was inducted into the Academy of Television Arts and Sciences Hall of Fame in 2010, and was named to Time magazine&rsquo;s &ldquo;100 Most Influential People in the World&rdquo; in 2005.</p>
+            <p>Today, he is Principal of Firefly3, an investment and consultancy firm focusing on media and entertainment, and a Senior Advisor to The Raine Group. He serves as Board Chair of The ONE Campaign, the anti-poverty advocacy organization focused on Africa, and is a board member of Imagine Entertainment. He has written the travel column &ldquo;On the Road&rdquo; for <em>Vanity Fair</em>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- EVENTS                                      -->
+    <!-- ============================================ -->
+    <section id="events" class="py-24 md:py-32 bg-charcoal-dark border-t border-white/5">
+      <div class="max-w-7xl mx-auto px-6">
+        <p class="text-amber uppercase tracking-[0.25em] text-xs font-sans font-semibold mb-3 text-center">On Tour</p>
+        <h2 class="font-serif text-4xl md:text-5xl font-bold text-cream text-center mb-4">Events</h2>
+        <p class="text-cream-dim text-center mb-16 font-sans">Tom on tour for <em class="font-serif">Unplugged</em></p>
+
+        <!-- Event card -->
+        <div class="max-w-3xl mx-auto">
+          <article class="bg-charcoal border border-white/5 rounded-lg p-8 md:flex gap-8 items-start">
+            <div class="flex-shrink-0 mb-4 md:mb-0 text-center md:text-left">
+              <span class="block font-serif text-4xl font-bold text-amber">26</span>
+              <span class="block text-cream-dim text-sm font-sans">April 2026</span>
+            </div>
+            <div>
+              <h3 class="font-serif text-xl font-semibold text-cream mb-1">Pop-Up Book Group with Tom Freston</h3>
+              <p class="text-cream-dim text-sm font-sans mb-3">Hosted by BookTheWriter &middot; In-person &amp; online (Zoom)</p>
+              <p class="text-cream/80 text-sm leading-relaxed mb-4">An intimate book group conversation with Tom Freston discussing <em>Unplugged: Adventures from MTV to Timbuktu</em>.</p>
+              <a href="https://events.humanitix.com/tom-freston" target="_blank" rel="noopener" class="inline-block bg-amber hover:bg-amber-dark text-charcoal-dark font-semibold px-5 py-2 rounded text-sm transition-colors">Register &rarr;</a>
+            </div>
+          </article>
+        </div>
+
+        <p class="text-cream-dim italic text-center mt-10 text-sm font-serif">More events to be announced. Check back soon.</p>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- PRESS & MEDIA                               -->
+    <!-- ============================================ -->
+    <section id="press" class="py-24 md:py-32 border-t border-white/5">
+      <div class="max-w-7xl mx-auto px-6">
+        <p class="text-amber uppercase tracking-[0.25em] text-xs font-sans font-semibold mb-3 text-center">In the Media</p>
+        <h2 class="font-serif text-4xl md:text-5xl font-bold text-cream text-center mb-16">Press &amp; Media</h2>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          <a href="https://fortune.com/2025/12/21/tom-freston-mtv-cofounder-paramount-viacom-netflix-interview-book-unplugged/" target="_blank" rel="noopener" class="group bg-charcoal-light border border-white/5 hover:border-amber/30 rounded-lg p-6 transition-colors block">
+            <span class="text-amber font-sans font-semibold text-sm block mb-2">Fortune</span>
+            <p class="font-serif text-cream/90 group-hover:text-cream transition-colors leading-snug">&ldquo;Tom Freston, the beat-poet exec who made MTV cool for 20 years&rdquo;</p>
+            <span class="text-cream-dim text-xs mt-3 block font-sans">Read &rarr;</span>
+          </a>
+
+          <a href="https://www.fastcompany.com/91460800/tom-freston-memoir-unplugged" target="_blank" rel="noopener" class="group bg-charcoal-light border border-white/5 hover:border-amber/30 rounded-lg p-6 transition-colors block">
+            <span class="text-amber font-sans font-semibold text-sm block mb-2">Fast Company</span>
+            <p class="font-serif text-cream/90 group-hover:text-cream transition-colors leading-snug">&ldquo;Tom Freston&rsquo;s new memoir shows how a &lsquo;bebop lifestyle&rsquo; can lead to success&rdquo;</p>
+            <span class="text-cream-dim text-xs mt-3 block font-sans">Read &rarr;</span>
+          </a>
+
+          <a href="https://podcasts.apple.com/us/podcast/tom-freston/id1316200737?i=1000738658172" target="_blank" rel="noopener" class="group bg-charcoal-light border border-white/5 hover:border-amber/30 rounded-lg p-6 transition-colors block">
+            <span class="text-amber font-sans font-semibold text-sm block mb-2">The Bob Lefsetz Podcast</span>
+            <p class="font-serif text-cream/90 group-hover:text-cream transition-colors leading-snug">&ldquo;Tom Freston&rdquo;</p>
+            <span class="text-cream-dim text-xs mt-3 block font-sans">Listen &rarr;</span>
+          </a>
+
+          <a href="https://x.com/jimmyfallon/status/1991511091881603487" target="_blank" rel="noopener" class="group bg-charcoal-light border border-white/5 hover:border-amber/30 rounded-lg p-6 transition-colors block">
+            <span class="text-amber font-sans font-semibold text-sm block mb-2">The Tonight Show with Jimmy Fallon</span>
+            <p class="font-serif text-cream/90 group-hover:text-cream transition-colors leading-snug">Endorsement</p>
+            <span class="text-cream-dim text-xs mt-3 block font-sans">View &rarr;</span>
+          </a>
+
+          <a href="https://thoughtgallery.org/events/tom-freston-in-conversation-with-jon-stewart-unplugged/" target="_blank" rel="noopener" class="group bg-charcoal-light border border-white/5 hover:border-amber/30 rounded-lg p-6 transition-colors block">
+            <span class="text-amber font-sans font-semibold text-sm block mb-2">ThoughtGallery / 92NY</span>
+            <p class="font-serif text-cream/90 group-hover:text-cream transition-colors leading-snug">&ldquo;Tom Freston in Conversation with Jon Stewart&rdquo;</p>
+            <span class="text-cream-dim text-xs mt-3 block font-sans">Details &rarr;</span>
+          </a>
+
+          <div class="bg-charcoal-light border border-white/5 rounded-lg p-6">
+            <span class="text-amber font-sans font-semibold text-sm block mb-2">Associated Press</span>
+            <p class="font-serif text-cream/90 leading-snug">Interview &amp; Feature</p>
+            <span class="text-cream-dim text-xs mt-3 block font-sans">Link coming soon</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- STAY IN TOUCH                               -->
+    <!-- ============================================ -->
+    <section id="contact" class="py-24 md:py-32 bg-charcoal-dark border-t border-white/5">
+      <div class="max-w-xl mx-auto px-6 text-center">
+        <p class="text-amber uppercase tracking-[0.25em] text-xs font-sans font-semibold mb-3">Newsletter</p>
+        <h2 class="font-serif text-4xl md:text-5xl font-bold text-cream mb-4">Stay in Touch</h2>
+        <p class="text-cream-dim mb-8 font-sans">For news, events, and dispatches from the road.</p>
+
+        <!-- TODO: Connect to Mailchimp/ConvertKit/etc. when digital manager provides service -->
+        <form id="newsletter-form" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+          <input
+            type="email"
+            placeholder="you@email.com"
+            class="flex-1 bg-charcoal border border-white/10 rounded px-4 py-3 text-cream text-sm font-sans placeholder:text-cream-dim/50 focus:outline-none focus:border-amber/50"
+          >
+          <button type="submit" class="bg-amber hover:bg-amber-dark text-charcoal-dark font-semibold px-6 py-3 rounded text-sm tracking-wide transition-colors">
+            Subscribe
+          </button>
+        </form>
+        <p id="newsletter-thanks" class="text-amber text-sm mt-4 hidden font-sans">Thanks &mdash; we&rsquo;ll be in touch.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================ -->
+  <!-- FOOTER                                      -->
+  <!-- ============================================ -->
+  <footer class="border-t border-white/5 py-16">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-3 gap-10 mb-12">
+
+        <!-- Left -->
+        <div>
+          <span class="font-serif text-xl font-semibold text-cream block mb-1">Tom Freston</span>
+          <span class="text-cream-dim text-sm font-sans">Author of <em class="font-serif">Unplugged</em></span>
+        </div>
+
+        <!-- Center -->
+        <div>
+          <h4 class="text-xs uppercase tracking-[0.2em] text-cream-dim font-sans mb-4">Quick Links</h4>
+          <ul class="space-y-2 text-sm font-sans">
+            <li><a href="#the-book" class="text-cream/70 hover:text-cream transition-colors">The Book</a></li>
+            <li><a href="#about-tom" class="text-cream/70 hover:text-cream transition-colors">About</a></li>
+            <li><a href="#praise" class="text-cream/70 hover:text-cream transition-colors">Praise</a></li>
+            <li><a href="#events" class="text-cream/70 hover:text-cream transition-colors">Events</a></li>
+            <li><a href="#press" class="text-cream/70 hover:text-cream transition-colors">Press</a></li>
+          </ul>
+        </div>
+
+        <!-- Right -->
+        <div>
+          <h4 class="text-xs uppercase tracking-[0.2em] text-cream-dim font-sans mb-4">Connect</h4>
+          <!-- TODO: Add social links from digital manager -->
+          <div class="flex gap-4">
+            <!-- Instagram placeholder -->
+            <a href="#" class="text-cream/50 hover:text-amber transition-colors" aria-label="Instagram">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            </a>
+            <!-- X / Twitter placeholder -->
+            <a href="#" class="text-cream/50 hover:text-amber transition-colors" aria-label="X / Twitter">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom row -->
+      <div class="border-t border-white/5 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-cream-dim font-sans">
+        <span>&copy; 2026 Tom Freston. All rights reserved.</span>
+        <span>Published by Gallery Books / Simon &amp; Schuster</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================ -->
+  <!-- JAVASCRIPT                                  -->
+  <!-- ============================================ -->
+  <script>
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const menuClose = document.getElementById('menu-close');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    function openMenu() {
+      mobileMenu.classList.remove('hidden');
+      requestAnimationFrame(() => mobileMenu.classList.add('visible'));
+    }
+    function closeMenu() {
+      mobileMenu.classList.remove('visible');
+      setTimeout(() => mobileMenu.classList.add('hidden'), 300);
+    }
+
+    menuToggle.addEventListener('click', openMenu);
+    menuClose.addEventListener('click', closeMenu);
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    // Retailer modal
+    const buyBtn = document.getElementById('buy-btn');
+    const modal = document.getElementById('retailer-modal');
+    const modalClose = document.getElementById('modal-close');
+
+    buyBtn.addEventListener('click', () => modal.classList.remove('hidden'));
+    modalClose.addEventListener('click', () => modal.classList.add('hidden'));
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.classList.add('hidden');
+    });
+
+    // Escape key closes modal and menu
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        modal.classList.add('hidden');
+        closeMenu();
+      }
+    });
+
+    // Newsletter form (visual only)
+    document.getElementById('newsletter-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      document.getElementById('newsletter-thanks').classList.remove('hidden');
+      e.target.querySelector('input').value = '';
+    });
+  </script>
+
+</body>
+</html>
