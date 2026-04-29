@@ -30,17 +30,17 @@
       theme: {
         extend: {
           colors: {
-            paper: '#FAF6EE',
-            'paper-warm': '#F3EDE0',
-            'paper-deep': '#EBE3D3',
+            paper: '#E8DCC4',
+            'paper-warm': '#DDD0B8',
+            'paper-deep': '#D2C4A8',
             ink: '#1A1A1A',
-            'ink-light': '#3D3830',
-            'ink-muted': '#7A7060',
-            'ink-faint': '#A89E8E',
+            'ink-light': '#2A2218',
+            'ink-muted': '#5C523E',
+            'ink-faint': '#8A7E6A',
             terra: '#B85C28',
             'terra-dark': '#9A4A1E',
             'terra-light': '#D4783E',
-            'rule': '#D6CCBA',
+            'rule': '#C4B699',
           },
           fontFamily: {
             serif: ['Playfair Display', 'Georgia', 'serif'],
@@ -57,7 +57,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      opacity: 0.03;
+      opacity: 0.04;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
       pointer-events: none;
       z-index: 1;
@@ -71,6 +71,33 @@
 
     /* Modal backdrop */
     .modal-backdrop { transition: opacity 0.2s ease; }
+
+    /* Timeline vertical line */
+    .timeline { position: relative; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      left: 1rem;
+    }
+    @media (min-width: 768px) {
+      .timeline::before { left: 50%; transform: translateX(-50%); }
+    }
+    /* Timeline dot */
+    .timeline-dot {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      left: 1rem;
+      top: 1.75rem;
+      transform: translateX(-50%);
+    }
+    @media (min-width: 768px) {
+      .timeline-dot { left: 50%; }
+    }
   </style>
 </head>
 
@@ -88,6 +115,7 @@
         <li><a href="#the-book" class="hover:text-terra transition-colors">The Book</a></li>
         <li><a href="#about-tom" class="hover:text-terra transition-colors">About Tom</a></li>
         <li><a href="#praise" class="hover:text-terra transition-colors">Praise</a></li>
+        <li><a href="#career" class="hover:text-terra transition-colors">Career</a></li>
         <li><a href="#events" class="hover:text-terra transition-colors">Events</a></li>
         <li><a href="#press" class="hover:text-terra transition-colors">Press</a></li>
         <li><a href="#podcasts" class="hover:text-terra transition-colors">Podcasts</a></li>
@@ -112,6 +140,7 @@
       <a href="#the-book" class="text-ink hover:text-terra transition-colors mobile-link">The Book</a>
       <a href="#about-tom" class="text-ink hover:text-terra transition-colors mobile-link">About Tom</a>
       <a href="#praise" class="text-ink hover:text-terra transition-colors mobile-link">Praise</a>
+      <a href="#career" class="text-ink hover:text-terra transition-colors mobile-link">Career</a>
       <a href="#events" class="text-ink hover:text-terra transition-colors mobile-link">Events</a>
       <a href="#press" class="text-ink hover:text-terra transition-colors mobile-link">Press</a>
       <a href="#podcasts" class="text-ink hover:text-terra transition-colors mobile-link">Podcasts</a>
@@ -133,7 +162,7 @@
             src="https://m.media-amazon.com/images/I/81vQYx3-y9L._SL1500_.jpg"
             onerror="this.onerror=null;this.src='https://images-na.ssl-images-amazon.com/images/P/1668089793.01._SCLZZZZZZZ_.jpg';"
             alt="Unplugged: Adventures from MTV to Timbuktu by Tom Freston — book cover"
-            class="w-72 md:w-96 shadow-xl shadow-ink/15 rounded-sm"
+            class="w-72 md:w-96 shadow-lg shadow-ink/12 rounded-sm"
           >
         </div>
 
@@ -153,7 +182,7 @@
             <button id="buy-btn" class="bg-ink hover:bg-ink-light text-paper font-semibold px-8 py-3 rounded text-sm tracking-wide transition-colors">
               Buy the Book
             </button>
-            <a href="#the-book" class="border border-ink/20 hover:border-terra text-ink hover:text-terra font-medium px-8 py-3 rounded text-sm tracking-wide transition-colors text-center">
+            <a href="#the-book" class="border border-terra/50 hover:border-terra text-terra font-medium px-8 py-3 rounded text-sm tracking-wide transition-colors text-center">
               Read an Excerpt
             </a>
           </div>
@@ -165,7 +194,7 @@
     <!-- RETAILER MODAL                              -->
     <!-- ============================================ -->
     <div id="retailer-modal" class="modal-backdrop fixed inset-0 z-[60] bg-ink/40 flex items-center justify-center hidden">
-      <div class="bg-paper border border-rule rounded-lg shadow-2xl shadow-ink/10 w-full max-w-md mx-4 p-8 relative">
+      <div class="bg-paper border border-rule rounded-lg shadow-2xl shadow-ink/15 w-full max-w-md mx-4 p-8 relative">
         <button id="modal-close" class="absolute top-4 right-4 text-ink-faint hover:text-ink" aria-label="Close">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
@@ -248,44 +277,30 @@
 
         <!-- Featured blurbs -->
         <div class="grid md:grid-cols-2 gap-8 mb-20">
-
-          <!-- Bono -->
           <article class="bg-paper border border-rule rounded-lg p-8">
             <p class="font-serif italic text-ink-light leading-relaxed mb-4">&ldquo;There is no table in the world where you would not want to be sitting across from Tom Freston. The man can turn a corporate boardroom into a juke joint. If I did not know this urbane cowboy so well, I would not believe half the stories in this remarkable book. Musicians, actors, and directors be warned: Tom Freston can dance us all off the stage.&rdquo;</p>
             <cite class="text-terra text-sm font-sans not-italic font-medium">&mdash; Bono</cite>
           </article>
-
-          <!-- Walter Isaacson -->
           <article class="bg-paper border border-rule rounded-lg p-8">
             <p class="font-serif italic text-ink-light leading-relaxed mb-4">&ldquo;This is a brilliant business book wrapped inside of a wild adventure story. Funny, insightful, and filled with colorful characters, it tells the story of how Tom and his gang created MTV, built a multibillion-dollar company, and changed both the music and television business. He broke rules, took risks, made amazing friends, and had a hell of a ride, from Manhattan to Timbuktu.&rdquo;</p>
             <cite class="text-terra text-sm font-sans not-italic font-medium">&mdash; Walter Isaacson</cite>
           </article>
-
-          <!-- Pico Iyer -->
           <article class="bg-paper border border-rule rounded-lg p-8">
             <p class="font-serif italic text-ink-light leading-relaxed mb-4">&ldquo;Only Tom Freston could give us a magical evocation of the joys of travel&mdash;to Afghanistan, to Burma, to Mali and Morocco&mdash;while also sharing a front-seat view of life at the top of both Hollywood and MTV. <em>Unplugged</em> is pure delight&mdash;a history lesson, an adventure story and a handbook on how to succeed in business all at once.&rdquo;</p>
             <cite class="text-terra text-sm font-sans not-italic font-medium">&mdash; Pico Iyer</cite>
           </article>
-
-          <!-- Fab 5 Freddy -->
           <article class="bg-paper border border-rule rounded-lg p-8">
             <p class="font-serif italic text-ink-light leading-relaxed mb-4">&ldquo;Tom Freston&rsquo;s <em>Unplugged</em> is the most thrilling rock &amp; roll literary ride of this era, full of excitement and zany counterculture cool, spiced with his razor sharp observations and quick wit. The adventures never cease.&rdquo;</p>
             <cite class="text-terra text-sm font-sans not-italic font-medium">&mdash; Fab 5 Freddy</cite>
           </article>
-
-          <!-- Rory Stewart -->
           <article class="bg-paper border border-rule rounded-lg p-8">
             <p class="font-serif italic text-ink-light leading-relaxed mb-4">&ldquo;Lively, inventive, charming, and often exhilarating. An enjoyable telling of a life well lived.&rdquo;</p>
             <cite class="text-terra text-sm font-sans not-italic font-medium">&mdash; Rory Stewart</cite>
           </article>
-
-          <!-- William Dalrymple -->
           <article class="bg-paper border border-rule rounded-lg p-8">
             <p class="font-serif italic text-ink-light leading-relaxed mb-4">&ldquo;<em>Unplugged</em> is as droll as it is revealing, as gossipy as it is indiscrete and as warm as it is witty and wise.&rdquo;</p>
             <cite class="text-terra text-sm font-sans not-italic font-medium">&mdash; William Dalrymple</cite>
           </article>
-
-          <!-- Lee Woodruff -->
           <article class="bg-paper border border-rule rounded-lg p-8 md:col-span-2">
             <p class="font-serif italic text-ink-light leading-relaxed mb-4">&ldquo;Tom Freston hasn&rsquo;t just lived life <em>Unplugged</em>&mdash;he&rsquo;s lived it full throttle. From designing and exporting clothes in India and Afghanistan to co-founding MTV and becoming CEO of Viacom, he broke the rules and made his own luck.&rdquo;</p>
             <cite class="text-terra text-sm font-sans not-italic font-medium">&mdash; Lee Woodruff</cite>
@@ -296,27 +311,27 @@
         <div>
           <h3 class="font-serif text-2xl font-semibold text-ink mb-8 text-center">From the Press</h3>
           <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div class="bg-paper-deep/50 border border-rule rounded p-5">
+            <div class="bg-paper-deep/60 border border-rule rounded p-5">
               <p class="font-serif italic text-ink-light text-sm leading-relaxed mb-3">&ldquo;A CEO memoir that rocks.&rdquo;</p>
               <span class="text-terra text-xs font-sans font-medium">Literary Hub</span>
             </div>
-            <div class="bg-paper-deep/50 border border-rule rounded p-5">
+            <div class="bg-paper-deep/60 border border-rule rounded p-5">
               <p class="font-serif italic text-ink-light text-sm leading-relaxed mb-3">&ldquo;An unexpectedly charming and self-effacing business memoir.&rdquo;</p>
               <span class="text-terra text-xs font-sans font-medium">Kirkus</span>
             </div>
-            <div class="bg-paper-deep/50 border border-rule rounded p-5">
+            <div class="bg-paper-deep/60 border border-rule rounded p-5">
               <p class="font-serif italic text-ink-light text-sm leading-relaxed mb-3">&ldquo;Equal parts industry tell-all, escapist travelogue, and glittering glimpse into the golden age of music videos. It&rsquo;s a memorable ride.&rdquo;</p>
               <span class="text-terra text-xs font-sans font-medium">Publishers Weekly</span>
             </div>
-            <div class="bg-paper-deep/50 border border-rule rounded p-5">
+            <div class="bg-paper-deep/60 border border-rule rounded p-5">
               <p class="font-serif italic text-ink-light text-sm leading-relaxed mb-3">&ldquo;With pacing resembling a page-turning thriller&hellip; truly, there is never a dull moment. A fun and fascinating memoir.&rdquo;</p>
               <span class="text-terra text-xs font-sans font-medium">Booklist</span>
             </div>
-            <div class="bg-paper-deep/50 border border-rule rounded p-5">
+            <div class="bg-paper-deep/60 border border-rule rounded p-5">
               <p class="font-serif italic text-ink-light text-sm leading-relaxed mb-3">&ldquo;The latest in a recent run of must-read memoirs from media moguls.&rdquo;</p>
               <span class="text-terra text-xs font-sans font-medium">Town &amp; Country</span>
             </div>
-            <div class="bg-paper-deep/50 border border-rule rounded p-5">
+            <div class="bg-paper-deep/60 border border-rule rounded p-5">
               <p class="font-serif italic text-ink-light text-sm leading-relaxed mb-3">&ldquo;Unplugged shows by example that trying to follow a straight line to success is not the only path.&rdquo;</p>
               <span class="text-terra text-xs font-sans font-medium">Associated Press</span>
             </div>
@@ -358,9 +373,239 @@
     </section>
 
     <!-- ============================================ -->
+    <!-- CAREER TIMELINE                             -->
+    <!-- ============================================ -->
+    <section id="career" class="py-24 md:py-32 bg-paper-warm border-t border-rule">
+      <div class="max-w-5xl mx-auto px-6">
+        <p class="text-terra uppercase tracking-[0.25em] text-xs font-sans font-semibold mb-3 text-center">Timeline</p>
+        <h2 class="font-serif text-4xl md:text-5xl font-bold text-ink text-center mb-3">Career</h2>
+        <p class="text-ink-muted text-center mb-20 font-serif italic text-lg">From the Sahara to the C-suite&mdash;a non-linear path.</p>
+
+        <div class="timeline">
+          <div class="absolute top-0 bottom-0 w-px left-4 md:left-1/2 md:-translate-x-1/2 bg-terra/20"></div>
+
+          <!-- 1945 -->
+          <div class="relative pl-10 md:pl-0 mb-16 md:flex md:items-start">
+            <div class="timeline-dot bg-terra"></div>
+            <div class="md:w-1/2 md:pr-12 md:text-right">
+              <span class="font-serif text-3xl md:text-4xl font-bold text-terra block mb-2">1945</span>
+              <span class="text-terra uppercase tracking-[0.2em] text-[10px] font-sans font-semibold block mb-2">Rowayton, Connecticut</span>
+              <h3 class="font-serif text-lg font-semibold text-ink mb-2">Born November 22</h3>
+              <p class="text-ink-light text-sm leading-relaxed">Thomas E. Freston is born in New York City and grows up in Rowayton, Connecticut.</p>
+            </div>
+            <div class="hidden md:block md:w-1/2"></div>
+          </div>
+
+          <!-- 1968 -->
+          <div class="relative pl-10 md:pl-0 mb-16 md:flex md:items-start md:flex-row-reverse">
+            <div class="timeline-dot bg-terra"></div>
+            <div class="md:w-1/2 md:pl-12">
+              <span class="font-serif text-3xl md:text-4xl font-bold text-terra block mb-2">1968</span>
+              <span class="text-terra uppercase tracking-[0.2em] text-[10px] font-sans font-semibold block mb-2">Vermont &amp; New York</span>
+              <h3 class="font-serif text-lg font-semibold text-ink mb-2">B.A., Saint Michael&rsquo;s College &rarr; MBA, NYU</h3>
+              <p class="text-ink-light text-sm leading-relaxed">Earns his undergraduate degree at Saint Michael&rsquo;s College, then an MBA from NYU. The MBA, he later admits, was largely to escape the Vietnam War draft.</p>
+            </div>
+            <div class="hidden md:block md:w-1/2"></div>
+          </div>
+
+          <!-- Early 1970s -->
+          <div class="relative pl-10 md:pl-0 mb-16 md:flex md:items-start">
+            <div class="timeline-dot bg-terra"></div>
+            <div class="md:w-1/2 md:pr-12 md:text-right">
+              <span class="font-serif text-3xl md:text-4xl font-bold text-terra block mb-2">Early 1970s</span>
+              <span class="text-terra uppercase tracking-[0.2em] text-[10px] font-sans font-semibold block mb-2">New York City</span>
+              <h3 class="font-serif text-lg font-semibold text-ink mb-2">Advertising at Benton &amp; Bowles</h3>
+              <p class="text-ink-light text-sm leading-relaxed">Lands on the Madison Avenue conveyor belt as a junior ad executive. Promoted to the firm&rsquo;s important Charmin account, he can&rsquo;t muster enthusiasm for selling toilet paper. An old girlfriend tells him: &ldquo;All those years of school, that fancy MBA degree, and you are selling toilet paper?&rdquo; He chucks it all.</p>
+            </div>
+            <div class="hidden md:block md:w-1/2"></div>
+          </div>
+
+          <!-- 1971–1972 -->
+          <div class="relative pl-10 md:pl-0 mb-16 md:flex md:items-start md:flex-row-reverse">
+            <div class="timeline-dot bg-terra"></div>
+            <div class="md:w-1/2 md:pl-12">
+              <span class="font-serif text-3xl md:text-4xl font-bold text-terra block mb-2">1971&ndash;1972</span>
+              <span class="text-terra uppercase tracking-[0.2em] text-[10px] font-sans font-semibold block mb-2">On the Road</span>
+              <h3 class="font-serif text-lg font-semibold text-ink mb-2">Hitchhiking the Sahara, Asia, the Caribbean</h3>
+              <p class="text-ink-light text-sm leading-relaxed">Bartends his way through the United States and the Caribbean, then heads to the Sahara Desert and beyond. The travel sparks a lifelong passion and a working philosophy: &ldquo;Operating low to the ground in treacherous, overwhelming places.&rdquo;</p>
+            </div>
+            <div class="hidden md:block md:w-1/2"></div>
+          </div>
+
+          <!-- 1972–1979 -->
+          <div class="relative pl-10 md:pl-0 mb-16 md:flex md:items-start">
+            <div class="timeline-dot bg-terra"></div>
+            <div class="md:w-1/2 md:pr-12 md:text-right">
+              <span class="font-serif text-3xl md:text-4xl font-bold text-terra block mb-2">1972&ndash;1979</span>
+              <span class="text-terra uppercase tracking-[0.2em] text-[10px] font-sans font-semibold block mb-2">New Delhi &amp; Kabul</span>
+              <h3 class="font-serif text-lg font-semibold text-ink mb-2">Founder, Hindu Kush</h3>
+              <p class="text-ink-light text-sm leading-relaxed">Settles in South Asia, splitting his life between New Delhi and Kabul. Founds Hindu Kush, a textile and clothing export company designing and manufacturing contemporary clothing for the American market. The business runs for eight years and generates millions in sales&mdash;until the Soviet invasion of Afghanistan and Carter-era import restrictions force him to fold it.</p>
+            </div>
+            <div class="hidden md:block md:w-1/2"></div>
+          </div>
+
+          <!-- 1980 -->
+          <div class="relative pl-10 md:pl-0 mb-16 md:flex md:items-start md:flex-row-reverse">
+            <div class="timeline-dot bg-terra"></div>
+            <div class="md:w-1/2 md:pl-12">
+              <span class="font-serif text-3xl md:text-4xl font-bold text-terra block mb-2">1980</span>
+              <span class="text-terra uppercase tracking-[0.2em] text-[10px] font-sans font-semibold block mb-2">New York City</span>
+              <h3 class="font-serif text-lg font-semibold text-ink mb-2">Joins Warner-Amex Satellite Entertainment Company (WASEC)</h3>
+              <p class="text-ink-light text-sm leading-relaxed">Back in New York, deep in debt at 33, Freston spots an ad in Billboard and interviews with a 26-year-old Bob Pittman for a marketing job at a new music video cable channel. Pittman wonders aloud about the &ldquo;Afghanistan&rdquo; line on Freston&rsquo;s resume, suspects he&rsquo;s a hashish smuggler, and decides that makes him like Freston more.</p>
+            </div>
+            <div class="hidden md:block md:w-1/2"></div>
+          </div>
+
+          <!-- 1981 -->
+          <div class="relative pl-10 md:pl-0 mb-16 md:flex md:items-start">
+            <div class="timeline-dot bg-terra"></div>
+            <div class="md:w-1/2 md:pr-12 md:text-right">
+              <span class="font-serif text-3xl md:text-4xl font-bold text-terra block mb-2">1981</span>
+              <span class="text-terra uppercase tracking-[0.2em] text-[10px] font-sans font-semibold block mb-2">New York City</span>
+              <h3 class="font-serif text-lg font-semibold text-ink mb-2">MTV launches; head of marketing</h3>
+              <p class="text-ink-light text-sm leading-relaxed">On August 1, 1981, MTV goes on the air. As head of marketing, Freston builds the iconic &ldquo;I Want My MTV&rdquo; campaign, ambushing Pete Townshend on a London street and David Bowie on a Swiss ski slope to demand cable systems carry the new network. The campaign becomes a cultural phenomenon.</p>
+            </div>
+            <div class="hidden md:block md:w-1/2"></div>
+          </div>
+
+          <!-- 1986 -->
+          <div class="relative pl-10 md:pl-0 mb-16 md:flex md:items-start md:flex-row-reverse">
+            <div class="timeline-dot bg-terra"></div>
+            <div class="md:w-1/2 md:pl-12">
+              <span class="font-serif text-3xl md:text-4xl font-bold text-terra block mb-2">1986</span>
+              <span class="text-terra uppercase tracking-[0.2em] text-[10px] font-sans font-semibold block mb-2">New York City</span>
+              <h3 class="font-serif text-lg font-semibold text-ink mb-2">Viacom acquires MTV Networks</h3>
+              <p class="text-ink-light text-sm leading-relaxed">Sumner Redstone&rsquo;s Viacom buys MTV Networks for $513 million. The infusion of capital and Freston&rsquo;s leadership set the company up for a decade of unprecedented growth.</p>
+            </div>
+            <div class="hidden md:block md:w-1/2"></div>
+          </div>
+
+          <!-- 1987 -->
+          <div class="relative pl-10 md:pl-0 mb-16 md:flex md:items-start">
+            <div class="timeline-dot bg-terra"></div>
+            <div class="md:w-1/2 md:pr-12 md:text-right">
+              <span class="font-serif text-3xl md:text-4xl font-bold text-terra block mb-2">1987</span>
+              <span class="text-terra uppercase tracking-[0.2em] text-[10px] font-sans font-semibold block mb-2">New York City</span>
+              <h3 class="font-serif text-lg font-semibold text-ink mb-2">CEO, MTV Networks</h3>
+              <p class="text-ink-light text-sm leading-relaxed">Freston is named President and CEO of MTV Networks. He will hold the role for 17 years. Under his leadership, MTV Networks expands to include Nickelodeon, VH1, Comedy Central, CMT, TV Land, Spike, Logo, and more. By 1994, MTV reaches 250 million homes in 58 countries.</p>
+            </div>
+            <div class="hidden md:block md:w-1/2"></div>
+          </div>
+
+          <!-- 1991 -->
+          <div class="relative pl-10 md:pl-0 mb-16 md:flex md:items-start md:flex-row-reverse">
+            <div class="timeline-dot bg-terra"></div>
+            <div class="md:w-1/2 md:pl-12">
+              <span class="font-serif text-3xl md:text-4xl font-bold text-terra block mb-2">1991</span>
+              <span class="text-terra uppercase tracking-[0.2em] text-[10px] font-sans font-semibold block mb-2">New York City</span>
+              <h3 class="font-serif text-lg font-semibold text-ink mb-2">Comedy Central</h3>
+              <p class="text-ink-light text-sm leading-relaxed">Brokers a merger with HBO&rsquo;s rival Comedy Channel to form Comedy Central, a joint venture that would later launch The Daily Show, South Park, Chappelle&rsquo;s Show, and The Colbert Report.</p>
+            </div>
+            <div class="hidden md:block md:w-1/2"></div>
+          </div>
+
+          <!-- 2004 -->
+          <div class="relative pl-10 md:pl-0 mb-16 md:flex md:items-start">
+            <div class="timeline-dot bg-terra"></div>
+            <div class="md:w-1/2 md:pr-12 md:text-right">
+              <span class="font-serif text-3xl md:text-4xl font-bold text-terra block mb-2">2004</span>
+              <span class="text-terra uppercase tracking-[0.2em] text-[10px] font-sans font-semibold block mb-2">New York City</span>
+              <h3 class="font-serif text-lg font-semibold text-ink mb-2">Co-President &amp; co-COO, Viacom</h3>
+              <p class="text-ink-light text-sm leading-relaxed">Following Mel Karmazin&rsquo;s departure, Freston is named co-president and co-COO of Viacom alongside Leslie Moonves, overseeing MTV Networks, Paramount Pictures, Famous Music, and Simon &amp; Schuster.</p>
+            </div>
+            <div class="hidden md:block md:w-1/2"></div>
+          </div>
+
+          <!-- 2005 -->
+          <div class="relative pl-10 md:pl-0 mb-16 md:flex md:items-start md:flex-row-reverse">
+            <div class="timeline-dot bg-terra"></div>
+            <div class="md:w-1/2 md:pl-12">
+              <span class="font-serif text-3xl md:text-4xl font-bold text-terra block mb-2">2005</span>
+              <span class="text-terra uppercase tracking-[0.2em] text-[10px] font-sans font-semibold block mb-2">Time 100</span>
+              <h3 class="font-serif text-lg font-semibold text-ink mb-2">Named to Time magazine&rsquo;s &ldquo;100 Most Influential People in the World&rdquo;</h3>
+            </div>
+            <div class="hidden md:block md:w-1/2"></div>
+          </div>
+
+          <!-- 2006 -->
+          <div class="relative pl-10 md:pl-0 mb-16 md:flex md:items-start">
+            <div class="timeline-dot bg-terra"></div>
+            <div class="md:w-1/2 md:pr-12 md:text-right">
+              <span class="font-serif text-3xl md:text-4xl font-bold text-terra block mb-2">2006</span>
+              <span class="text-terra uppercase tracking-[0.2em] text-[10px] font-sans font-semibold block mb-2">New York City</span>
+              <h3 class="font-serif text-lg font-semibold text-ink mb-2">CEO, Viacom &rarr; fired</h3>
+              <p class="text-ink-light text-sm leading-relaxed">On December 31, 2005, Viacom splits into two companies; Freston becomes CEO of the second Viacom. Nine months later, on Labor Day weekend 2006, Sumner Redstone fires him in a two-minute meeting. As Freston leaves 1515 Broadway for the last time, more than a thousand employees gather spontaneously in the lobby to give him a hero&rsquo;s send-off.</p>
+            </div>
+            <div class="hidden md:block md:w-1/2"></div>
+          </div>
+
+          <!-- 2006–Present Firefly3 -->
+          <div class="relative pl-10 md:pl-0 mb-16 md:flex md:items-start md:flex-row-reverse">
+            <div class="timeline-dot bg-terra"></div>
+            <div class="md:w-1/2 md:pl-12">
+              <span class="font-serif text-3xl md:text-4xl font-bold text-terra block mb-2">2006&ndash;Present</span>
+              <span class="text-terra uppercase tracking-[0.2em] text-[10px] font-sans font-semibold block mb-2">Global</span>
+              <h3 class="font-serif text-lg font-semibold text-ink mb-2">Principal, Firefly3 LLC</h3>
+              <p class="text-ink-light text-sm leading-relaxed">Founds Firefly3, a media and entertainment consulting and investment firm. Advises Oprah Winfrey&rsquo;s company, Vice Media, and others. Becomes Senior Advisor to The Raine Group.</p>
+            </div>
+            <div class="hidden md:block md:w-1/2"></div>
+          </div>
+
+          <!-- 2007–Present Afghanistan -->
+          <div class="relative pl-10 md:pl-0 mb-16 md:flex md:items-start">
+            <div class="timeline-dot bg-terra"></div>
+            <div class="md:w-1/2 md:pr-12 md:text-right">
+              <span class="font-serif text-3xl md:text-4xl font-bold text-terra block mb-2">2007&ndash;Present</span>
+              <span class="text-terra uppercase tracking-[0.2em] text-[10px] font-sans font-semibold block mb-2">Kabul &amp; Washington, D.C.</span>
+              <h3 class="font-serif text-lg font-semibold text-ink mb-2">Returns to Afghanistan</h3>
+              <p class="text-ink-light text-sm leading-relaxed">Partners with Afghan entrepreneur Saad Mohseni at Moby Group to build television networks for the Afghan people, work that continued until the Taliban&rsquo;s 2021 return to power. Recently, the Taliban have permitted Mohseni to produce educational programming for girls.</p>
+            </div>
+            <div class="hidden md:block md:w-1/2"></div>
+          </div>
+
+          <!-- 2010 -->
+          <div class="relative pl-10 md:pl-0 mb-16 md:flex md:items-start md:flex-row-reverse">
+            <div class="timeline-dot bg-terra"></div>
+            <div class="md:w-1/2 md:pl-12">
+              <span class="font-serif text-3xl md:text-4xl font-bold text-terra block mb-2">2010</span>
+              <span class="text-terra uppercase tracking-[0.2em] text-[10px] font-sans font-semibold block mb-2">Los Angeles</span>
+              <h3 class="font-serif text-lg font-semibold text-ink mb-2">Inducted into the Academy of Television Arts &amp; Sciences Hall of Fame</h3>
+            </div>
+            <div class="hidden md:block md:w-1/2"></div>
+          </div>
+
+          <!-- Ongoing — ONE Campaign -->
+          <div class="relative pl-10 md:pl-0 mb-16 md:flex md:items-start">
+            <div class="timeline-dot bg-terra"></div>
+            <div class="md:w-1/2 md:pr-12 md:text-right">
+              <span class="font-serif text-3xl md:text-4xl font-bold text-terra block mb-2">Ongoing</span>
+              <span class="text-terra uppercase tracking-[0.2em] text-[10px] font-sans font-semibold block mb-2">Africa &amp; Washington, D.C.</span>
+              <h3 class="font-serif text-lg font-semibold text-ink mb-2">Board Chair, The ONE Campaign</h3>
+              <p class="text-ink-light text-sm leading-relaxed">Serves as Board Chair of The ONE Campaign, the anti-poverty advocacy organization founded by Bono. Has held this role for nearly two decades.</p>
+            </div>
+            <div class="hidden md:block md:w-1/2"></div>
+          </div>
+
+          <!-- 2025 -->
+          <div class="relative pl-10 md:pl-0 md:flex md:items-start md:flex-row-reverse">
+            <div class="timeline-dot bg-terra ring-4 ring-terra/20"></div>
+            <div class="md:w-1/2 md:pl-12">
+              <span class="font-serif text-3xl md:text-4xl font-bold text-terra block mb-2">2025</span>
+              <span class="text-terra uppercase tracking-[0.2em] text-[10px] font-sans font-semibold block mb-2">Global</span>
+              <h3 class="font-serif text-xl font-bold text-ink mb-2">Publishes <em>Unplugged</em></h3>
+              <p class="text-ink-light text-sm leading-relaxed">Releases his memoir, <em>Unplugged: Adventures from MTV to Timbuktu</em>, with Gallery Books / Simon &amp; Schuster, on November 18, 2025.</p>
+            </div>
+            <div class="hidden md:block md:w-1/2"></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
     <!-- EVENTS                                      -->
     <!-- ============================================ -->
-    <section id="events" class="py-24 md:py-32 bg-paper-warm border-t border-rule">
+    <section id="events" class="py-24 md:py-32 border-t border-rule">
       <div class="max-w-7xl mx-auto px-6">
         <p class="text-terra uppercase tracking-[0.25em] text-xs font-sans font-semibold mb-3 text-center">On Tour</p>
         <h2 class="font-serif text-4xl md:text-5xl font-bold text-ink text-center mb-4">Events</h2>
@@ -368,7 +613,7 @@
 
         <!-- Event card -->
         <div class="max-w-3xl mx-auto">
-          <article class="bg-paper border border-rule rounded-lg p-8 md:flex gap-8 items-start">
+          <article class="bg-paper-warm border border-rule rounded-lg p-8 md:flex gap-8 items-start">
             <div class="flex-shrink-0 mb-4 md:mb-0 text-center md:text-left">
               <span class="block font-serif text-4xl font-bold text-terra">26</span>
               <span class="block text-ink-muted text-sm font-sans">April 2026</span>
@@ -389,38 +634,38 @@
     <!-- ============================================ -->
     <!-- PRESS & MEDIA                               -->
     <!-- ============================================ -->
-    <section id="press" class="py-24 md:py-32 border-t border-rule">
+    <section id="press" class="py-24 md:py-32 bg-paper-warm border-t border-rule">
       <div class="max-w-7xl mx-auto px-6">
         <p class="text-terra uppercase tracking-[0.25em] text-xs font-sans font-semibold mb-3 text-center">In the Media</p>
         <h2 class="font-serif text-4xl md:text-5xl font-bold text-ink text-center mb-16">Press &amp; Media</h2>
 
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
-          <a href="https://fortune.com/2025/12/21/tom-freston-mtv-cofounder-paramount-viacom-netflix-interview-book-unplugged/" target="_blank" rel="noopener" class="group bg-paper-warm border border-rule hover:border-terra/40 rounded-lg p-6 transition-colors block">
+          <a href="https://fortune.com/2025/12/21/tom-freston-mtv-cofounder-paramount-viacom-netflix-interview-book-unplugged/" target="_blank" rel="noopener" class="group bg-paper border border-rule hover:border-terra/40 rounded-lg p-6 transition-colors block">
             <span class="text-terra font-sans font-semibold text-sm block mb-2">Fortune</span>
             <p class="font-serif text-ink-light group-hover:text-ink transition-colors leading-snug">&ldquo;Tom Freston, the beat-poet exec who made MTV cool for 20 years&rdquo;</p>
             <span class="text-ink-faint text-xs mt-3 block font-sans">Read &rarr;</span>
           </a>
 
-          <a href="https://www.fastcompany.com/91460800/tom-freston-memoir-unplugged" target="_blank" rel="noopener" class="group bg-paper-warm border border-rule hover:border-terra/40 rounded-lg p-6 transition-colors block">
+          <a href="https://www.fastcompany.com/91460800/tom-freston-memoir-unplugged" target="_blank" rel="noopener" class="group bg-paper border border-rule hover:border-terra/40 rounded-lg p-6 transition-colors block">
             <span class="text-terra font-sans font-semibold text-sm block mb-2">Fast Company</span>
             <p class="font-serif text-ink-light group-hover:text-ink transition-colors leading-snug">&ldquo;Tom Freston&rsquo;s new memoir shows how a &lsquo;bebop lifestyle&rsquo; can lead to success&rdquo;</p>
             <span class="text-ink-faint text-xs mt-3 block font-sans">Read &rarr;</span>
           </a>
 
-          <a href="https://x.com/jimmyfallon/status/1991511091881603487" target="_blank" rel="noopener" class="group bg-paper-warm border border-rule hover:border-terra/40 rounded-lg p-6 transition-colors block">
+          <a href="https://x.com/jimmyfallon/status/1991511091881603487" target="_blank" rel="noopener" class="group bg-paper border border-rule hover:border-terra/40 rounded-lg p-6 transition-colors block">
             <span class="text-terra font-sans font-semibold text-sm block mb-2">The Tonight Show with Jimmy Fallon</span>
             <p class="font-serif text-ink-light group-hover:text-ink transition-colors leading-snug">Endorsement</p>
             <span class="text-ink-faint text-xs mt-3 block font-sans">View &rarr;</span>
           </a>
 
-          <a href="https://thoughtgallery.org/events/tom-freston-in-conversation-with-jon-stewart-unplugged/" target="_blank" rel="noopener" class="group bg-paper-warm border border-rule hover:border-terra/40 rounded-lg p-6 transition-colors block">
+          <a href="https://thoughtgallery.org/events/tom-freston-in-conversation-with-jon-stewart-unplugged/" target="_blank" rel="noopener" class="group bg-paper border border-rule hover:border-terra/40 rounded-lg p-6 transition-colors block">
             <span class="text-terra font-sans font-semibold text-sm block mb-2">ThoughtGallery / 92NY</span>
             <p class="font-serif text-ink-light group-hover:text-ink transition-colors leading-snug">&ldquo;Tom Freston in Conversation with Jon Stewart&rdquo;</p>
             <span class="text-ink-faint text-xs mt-3 block font-sans">Details &rarr;</span>
           </a>
 
-          <div class="bg-paper-warm border border-rule rounded-lg p-6">
+          <div class="bg-paper border border-rule rounded-lg p-6">
             <span class="text-terra font-sans font-semibold text-sm block mb-2">Associated Press</span>
             <p class="font-serif text-ink-light leading-snug">Interview &amp; Feature</p>
             <span class="text-ink-faint text-xs mt-3 block font-sans">Link coming soon</span>
@@ -432,7 +677,7 @@
     <!-- ============================================ -->
     <!-- PODCASTS                                    -->
     <!-- ============================================ -->
-    <section id="podcasts" class="py-24 md:py-32 bg-paper-warm border-t border-rule">
+    <section id="podcasts" class="py-24 md:py-32 border-t border-rule">
       <div class="max-w-7xl mx-auto px-6">
         <p class="text-terra uppercase tracking-[0.25em] text-xs font-sans font-semibold mb-3 text-center">Listen</p>
         <h2 class="font-serif text-4xl md:text-5xl font-bold text-ink text-center mb-4">Podcasts</h2>
@@ -440,35 +685,35 @@
 
         <div class="grid md:grid-cols-2 gap-6">
 
-          <a href="https://open.spotify.com/episode/3kgqMA272k1Pcjkyil0zSV" target="_blank" rel="noopener" class="group bg-paper border border-rule hover:border-terra/40 rounded-lg p-6 transition-colors block">
+          <a href="https://open.spotify.com/episode/3kgqMA272k1Pcjkyil0zSV" target="_blank" rel="noopener" class="group bg-paper-warm border border-rule hover:border-terra/40 rounded-lg p-6 transition-colors block">
             <h3 class="font-serif text-xl font-semibold text-ink group-hover:text-terra transition-colors mb-1">SmartLess</h3>
             <p class="text-ink-muted text-sm font-sans mb-3">Jason Bateman, Sean Hayes &amp; Will Arnett</p>
             <p class="text-ink-light text-sm leading-relaxed mb-4">A wide-ranging conversation about Tom&rsquo;s career, the making of MTV, and the philosophy behind living an unconventional life.</p>
             <span class="text-terra text-xs font-sans font-medium">Listen &rarr;</span>
           </a>
 
-          <a href="https://podcasts.apple.com/us/podcast/tom-freston/id1316200737?i=1000738658172" target="_blank" rel="noopener" class="group bg-paper border border-rule hover:border-terra/40 rounded-lg p-6 transition-colors block">
+          <a href="https://podcasts.apple.com/us/podcast/tom-freston/id1316200737?i=1000738658172" target="_blank" rel="noopener" class="group bg-paper-warm border border-rule hover:border-terra/40 rounded-lg p-6 transition-colors block">
             <h3 class="font-serif text-xl font-semibold text-ink group-hover:text-terra transition-colors mb-1">The Bob Lefsetz Podcast</h3>
             <p class="text-ink-muted text-sm font-sans mb-3">Bob Lefsetz</p>
             <p class="text-ink-light text-sm leading-relaxed mb-4">A deep dive on the music industry, the rise of MTV, and Tom&rsquo;s philosophy on creative leadership.</p>
             <span class="text-terra text-xs font-sans font-medium">Listen &rarr;</span>
           </a>
 
-          <a href="https://www.bloomberg.com/news/audio/2026-02-23/bloomberg-businessweek-daily-tom-freston-unplugged-podcast-mlzru14j" target="_blank" rel="noopener" class="group bg-paper border border-rule hover:border-terra/40 rounded-lg p-6 transition-colors block">
+          <a href="https://www.bloomberg.com/news/audio/2026-02-23/bloomberg-businessweek-daily-tom-freston-unplugged-podcast-mlzru14j" target="_blank" rel="noopener" class="group bg-paper-warm border border-rule hover:border-terra/40 rounded-lg p-6 transition-colors block">
             <h3 class="font-serif text-xl font-semibold text-ink group-hover:text-terra transition-colors mb-1">Bloomberg Businessweek Daily</h3>
             <p class="text-ink-muted text-sm font-sans mb-3">Bloomberg</p>
             <p class="text-ink-light text-sm leading-relaxed mb-4">Tom on the state of media today, the Netflix-Paramount-Warner battle, and lessons from cable&rsquo;s golden age.</p>
             <span class="text-terra text-xs font-sans font-medium">Listen &rarr;</span>
           </a>
 
-          <a href="https://www.iheart.com/podcast/105-ridiculous-history-28588696/episode/unplugged-adventures-from-mtv-to-timbuktu-315364891/" target="_blank" rel="noopener" class="group bg-paper border border-rule hover:border-terra/40 rounded-lg p-6 transition-colors block">
+          <a href="https://www.iheart.com/podcast/105-ridiculous-history-28588696/episode/unplugged-adventures-from-mtv-to-timbuktu-315364891/" target="_blank" rel="noopener" class="group bg-paper-warm border border-rule hover:border-terra/40 rounded-lg p-6 transition-colors block">
             <h3 class="font-serif text-xl font-semibold text-ink group-hover:text-terra transition-colors mb-1">Ridiculous History</h3>
             <p class="text-ink-muted text-sm font-sans mb-3">Ben Bowlin, Noel Brown &amp; Max Williams</p>
             <p class="text-ink-light text-sm leading-relaxed mb-4">The true origin story of MTV, told by its co-founder, plus the philosophy of living a life worth living.</p>
             <span class="text-terra text-xs font-sans font-medium">Listen &rarr;</span>
           </a>
 
-          <a href="https://podcasts.apple.com/lk/podcast/ruthies-table-4/id1585413971" target="_blank" rel="noopener" class="group bg-paper border border-rule hover:border-terra/40 rounded-lg p-6 transition-colors block md:col-span-2 md:max-w-[calc(50%-0.75rem)]">
+          <a href="https://podcasts.apple.com/lk/podcast/ruthies-table-4/id1585413971" target="_blank" rel="noopener" class="group bg-paper-warm border border-rule hover:border-terra/40 rounded-lg p-6 transition-colors block md:col-span-2 md:max-w-[calc(50%-0.75rem)]">
             <h3 class="font-serif text-xl font-semibold text-ink group-hover:text-terra transition-colors mb-1">Ruthie&rsquo;s Table 4</h3>
             <p class="text-ink-muted text-sm font-sans mb-3">Ruth Rogers (The River Cafe)</p>
             <p class="text-ink-light text-sm leading-relaxed mb-4">Tom on adventures from hitchhiking the Sahara to lunch with Fidel Castro, and what he ate along the way.</p>
@@ -500,6 +745,20 @@
           </button>
         </form>
         <p id="newsletter-thanks" class="text-terra text-sm mt-4 hidden font-sans">Thanks &mdash; we&rsquo;ll be in touch.</p>
+
+        <div class="border-t border-rule mt-12 pt-10">
+          <h3 class="font-serif text-2xl font-semibold text-ink mb-6">Follow Tom</h3>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+            <a href="https://www.instagram.com/tomfrestonunplugged/" target="_blank" rel="noopener" class="flex items-center justify-center gap-3 bg-paper-warm border border-rule hover:border-terra/40 rounded px-6 py-3 text-ink text-sm font-sans font-medium transition-colors flex-1">
+              <svg class="w-5 h-5 text-terra" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+              @tomfrestonunplugged
+            </a>
+            <a href="https://www.tiktok.com/@tomfrestonunplugged" target="_blank" rel="noopener" class="flex items-center justify-center gap-3 bg-paper-warm border border-rule hover:border-terra/40 rounded px-6 py-3 text-ink text-sm font-sans font-medium transition-colors flex-1">
+              <svg class="w-5 h-5 text-terra" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.73a8.19 8.19 0 004.76 1.52V6.79a4.84 4.84 0 01-1-.1z"/></svg>
+              @tomfrestonunplugged
+            </a>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -533,15 +792,13 @@
         <!-- Right -->
         <div>
           <h4 class="text-xs uppercase tracking-[0.2em] text-ink-faint font-sans mb-4">Connect</h4>
-          <!-- TODO: Add social links from digital manager -->
+          <!-- TODO: Add additional handles (X/Twitter, LinkedIn, etc.) from digital manager if/when provided. IG and TikTok are live. -->
           <div class="flex gap-4">
-            <!-- Instagram placeholder -->
-            <a href="#" class="text-ink-faint hover:text-terra transition-colors" aria-label="Instagram">
+            <a href="https://www.instagram.com/tomfrestonunplugged/" target="_blank" rel="noopener" class="text-ink-faint hover:text-terra transition-colors" aria-label="Instagram">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
             </a>
-            <!-- X / Twitter placeholder -->
-            <a href="#" class="text-ink-faint hover:text-terra transition-colors" aria-label="X / Twitter">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            <a href="https://www.tiktok.com/@tomfrestonunplugged" target="_blank" rel="noopener" class="text-ink-faint hover:text-terra transition-colors" aria-label="TikTok">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.73a8.19 8.19 0 004.76 1.52V6.79a4.84 4.84 0 01-1-.1z"/></svg>
             </a>
           </div>
         </div>
